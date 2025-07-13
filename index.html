@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BearTube - Educational STEM Videos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0f0f0f;
+            color: #fff;
+        }
+
+        /* Header */
+        .header {
+            background-color: #212121;
+            padding: 0 16px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .hamburger {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .search-section {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            max-width: 640px;
+            margin: 0 40px;
+        }
+
+        .search-bar {
+            background-color: #121212;
+            border: 1px solid #303030;
+            border-radius: 2px 0 0 2px;
+            padding: 8px 12px;
+            color: #fff;
+            flex: 1;
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: #303030;
+            border: 1px solid #303030;
+            border-radius: 0 2px 2px 0;
+            padding: 8px 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #ff6b35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 56px;
+            padding: 20px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background-color: #0f0f0f;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background-color: #303030;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s;
+        }
+
+        .thumbnail:hover img {
+            transform: scale(1.05);
+        }
+
+        .thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background-color: rgba(0,0,0,0.8);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 12px;
+        }
+
+        .video-info {
+            padding: 12px;
+        }
+
+        .video-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: #fff;
+        }
+
+        .channel-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .channel-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #8b4513;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .channel-name {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .video-stats {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .verified {
+            color: #aaa;
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+            
+            .search-section {
+                margin: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <button class="hamburger">☰</button>
+            <div class="logo">🐻 BearTube</div>
+        </div>
+        <div class="search-section">
+            <input type="text" class="search-bar" placeholder="Search STEM lessons...">
+            <button class="search-btn">🔍</button>
+        </div>
+        <div class="user-section">
+            <div class="user-avatar">B</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400&h=200&fit=crop" alt="Bear teaching math">
+                    <div class="duration">8:42</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Basic Math with Professor Bear - Addition & Subtraction</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">🐻</div>
+                        <div class="channel-name">STEM Bears Academy</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">45K views • 2 days ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?w=400&h=200&fit=crop" alt="Bear in lab coat with chemistry">
+                    <div class="duration">12:15</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Chemistry Bear Explains: States of Matter</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">🧪</div>
+                        <div class="channel-name">Science Bear Labs</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">128K views • 1 week ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1574144611937-0df059b5ef3e?w=400&h=200&fit=crop" alt="Bear with plants biology">
+                    <div class="duration">10:33</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Biology Bear: How Plants Grow and Photosynthesize</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">🌱</div>
+                        <div class="channel-name">Nature Bear Education</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">89K views • 4 days ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=200&fit=crop" alt="Bear with space physics">
+                    <div class="duration">15:22</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Physics Bear: Gravity and Motion in Space</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">🚀</div>
+                        <div class="channel-name">Space Bear Physics</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">203K views • 3 days ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1509909756405-be0199881695?w=400&h=200&fit=crop" alt="Bear teaching geometry">
+                    <div class="duration">9:18</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Geometry Bear: Understanding Shapes and Angles</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">📐</div>
+                        <div class="channel-name">Math Bear Academy</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">67K views • 1 day ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=200&fit=crop" alt="Bear with computer coding">
+                    <div class="duration">13:47</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Coding Bear: Introduction to Programming Logic</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">💻</div>
+                        <div class="channel-name">Tech Bear Tutorials</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">156K views • 5 days ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&h=200&fit=crop" alt="Bear with geography earth">
+                    <div class="duration">11:29</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Geography Bear: Understanding Weather Patterns</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">🌍</div>
+                        <div class="channel-name">Earth Bear Sciences</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">94K views • 2 weeks ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=400&h=200&fit=crop" alt="Bear in lab doing experiments">
+                    <div class="duration">7:55</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Lab Bear: Fun Science Experiments You Can Do at Home</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">🔬</div>
+                        <div class="channel-name">Experiment Bear</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">312K views • 1 week ago</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=400&h=200&fit=crop" alt="Bear with calculator math">
+                    <div class="duration">14:12</div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">Calculator Bear: Fractions and Decimals Made Easy</div>
+                    <div class="channel-info">
+                        <div class="channel-avatar">🧮</div>
+                        <div class="channel-name">Number Bear Math</div>
+                        <div class="verified">✓</div>
+                    </div>
+                    <div class="video-stats">178K views • 6 days ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some basic interactivity
+        document.querySelectorAll('.video-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.video-title').textContent;
+                alert(`You clicked on: ${title}\n\nThis would normally open the video player!`);
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-bar').value;
+            if (searchTerm) {
+                alert(`Searching for: ${searchTerm}`);
+            }
+        });
+
+        document.querySelector('.search-bar').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value;
+                if (searchTerm) {
+                    alert(`Searching for: ${searchTerm}`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
